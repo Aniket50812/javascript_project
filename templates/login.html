@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Register</title>
+    <style>
+        /* Inline CSS for demonstration; move to styles.css if preferred */
+        body {
+            background-color: rgb(129, 243, 117);
+            margin: 0;
+            font-family: Arial, sans-serif;
+            position: relative; /* For positioning offer banners */
+        }
+        h1 {
+            text-align: center;
+            font-size: 60px;
+            padding-bottom: 130px;
+        }
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .form-container label {
+            font-size: 18px;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-container input {
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            font-size: 20px;
+            width: 70%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+
+        .form-toggle {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .form-toggle a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .form-toggle a:hover {
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        /* Cloud shape and blinking effect */
+        .offer-banner {
+            position: absolute;
+            background-color: #ff5722;
+            color: #fff;
+            padding: 20px 30px;
+            border-radius: 50px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            font-size: 24px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 220px;
+            height: 100px;
+            animation: blink 1.5s infinite;
+            z-index: 1000;
+        }
+
+        .offer-text {
+            font-weight: bold;
+            animation: blink-text 1.5s infinite;
+        }
+
+        .offer-banner:nth-of-type(1) {
+            top: 10px;
+            right: 10px;
+            background-color: #ff5722;
+        }
+
+        .offer-banner:nth-of-type(2) {
+            top: 120px;
+            right: 10px;
+            background-color: #4caf50;
+            animation: blink 2s infinite;
+        }
+
+        .offer-banner:nth-of-type(3) {
+            top: 10px;
+            left: 10px;
+            background-color: #2196f3;
+        }
+
+        .offer-banner:nth-of-type(4) {
+            top: 120px;
+            left: 10px;
+            background-color: #ff9800;
+            animation: blink 2.5s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        @keyframes blink-text {
+            0%, 100% {
+                color: #fff;
+            }
+            50% {
+                color: #ffeb3b;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <h1>Welcome to My Online Store</h1>
+        </div>
+    </header>
+    <main>
+        <!-- Cloud-Shaped Offer Banners -->
+        <div class="offer-banner">
+            <span class="offer-text">Special Offer: 20% Off!</span>
+        </div>
+        <div class="offer-banner">
+            <span class="offer-text">Buy 1 Get 1 Free! </span>
+        </div>
+        <div class="offer-banner">
+            <span class="offer-text">Maha Sale: 50% Off! From 10 Sept to 13 Sept</span>
+        </div>
+        <div class="offer-banner">
+            <span class="offer-text">Clearance: Up to 50% Off!</span>
+        </div>
+
+        <div class="form-container">
+            <!-- Login Form -->
+            <div id="login-form">
+                <h2>Login</h2>
+                <form method="POST">
+                    <label for="login-username">Username:</label>
+                    <input type="text" id="login-username" name="username" required>
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="password" required>
+                    <button type="submit">Login</button>
+                </form>
+                <div class="form-toggle">
+                    <a href="#" id="show-register">Don't have an account? Register</a>
+                </div>
+            </div>
+            
+            <!-- Registration Form -->
+            <div id="register-form" class="hidden">
+                <h2>Register</h2>
+                <form method="POST" action="{{ url_for('register') }}">
+                    <label for="register-username">Username:</label>
+                    <input type="text" id="register-username" name="username" required>
+                    <label for="register-password">Password:</label>
+                    <input type="password" id="register-password" name="password" required>
+                    <button type="submit">Register</button>
+                </form>
+                <div class="form-toggle">
+                    <a href="#" id="show-login">Already have an account? Login</a>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const loginForm = document.getElementById('login-form');
+            const registerForm = document.getElementById('register-form');
+            const showRegister = document.getElementById('show-register');
+            const showLogin = document.getElementById('show-login');
+
+            showRegister.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginForm.classList.add('hidden');
+                registerForm.classList.remove('hidden');
+            });
+
+            showLogin.addEventListener('click', (e) => {
+                e.preventDefault();
+                registerForm.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+            });
+        });
+    </script>
+</body>
+</html>

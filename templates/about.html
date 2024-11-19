@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="{{ url_for('index') }}" id="home-link">Online Store</a></h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}" class="nav-link">About Us</a></li>
+                    <li><a href="{{ url_for('checkout') }}" id="cart-link" class="nav-link">Cart (<span id="cart-count">0</span>)</a></li>
+                    <li><a href="{{ url_for('logout') }}" id="logout-link" class="nav-link">logout</a></li>
+                </ul>
+            </div>
+            <input type="text" id="search-input" placeholder="Search products..." aria-label="Search products" oninput="filterProducts()">
+        </nav>
+    </header>
+    <main>
+        <section id="about-info">
+            <h2>About Us</h2>
+            <p><strong>Main Branch:</strong> 123 Main St, Hinjewadi Town, Pune</p>
+            <p><strong>Helpline:</strong> 1-800-123-4567</p>
+            <p><strong>Support Number:</strong> 1-800-987-6543</p>
+            <p><strong>Headquarters:</strong> 456 Corporate Ave, Business City, USA</p>
+            <h3>Our Mission</h3>
+            <p>We strive to provide the best online shopping experience by offering high-quality products, excellent customer service, and competitive prices. Our team is dedicated to ensuring customer satisfaction and continuously improving our services.</p>
+            <h3>Our Team</h3>
+            <p>Our team consists of experienced professionals from various fields, including product management, customer service, logistics, and technology. We work together to ensure that our customers receive the best possible experience.</p>
+        </section>
+        <section id="feedback">
+            <h2>Feedback</h2>
+            <p>We value your feedback and suggestions. Please use the form below to share your thoughts or report any issues you have encountered.</p>
+            <form id="feedback-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <button type="submit">Submit</button>
+            </form>
+            <div id="feedback-message" class="hidden">
+                <p>Your feedback has been successfully sent. Thank you!</p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 Online Store. All rights reserved.</p>
+    </footer>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

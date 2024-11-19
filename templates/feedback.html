@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f9d7d7;
+        }
+        .feedback-container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        .emoji {
+            font-size: 60px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        .emoji.selected {
+            background-color: #8af4c4;
+            border-radius: 10px;
+        }
+        .rating-section {
+            margin: 20px 0;
+        }
+        .rating-section input {
+            margin: 0 10px;
+        }
+        .submit-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 10px;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        .flash-message {
+            font-size: 20px;
+            margin: 20px;
+            padding: 10px;
+            background-color: #d4edda;
+            color: #155724;
+            border-radius: 5px;
+            border: 1px solid #c3e6cb;
+            text-align: center;
+            display: none; /* Initially hidden */
+        }
+        h2{
+            font-size: 30px;
+        }
+        p{
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="feedback-container">
+        <h2>We value your feedback!</h2>
+        <p>How was your experience?</p>
+        <div class="emoji" data-rating="very-happy">😊</div>
+        <div class="emoji" data-rating="happy">🙂</div>
+        <div class="emoji" data-rating="upset">😞</div>
+
+        <form id="feedback-form" method="POST">
+            <div class="rating-section">
+                <input type="radio" id="very-happy" name="rating" value="very-happy">
+                <label for="very-happy">Very Happy</label>
+                <input type="radio" id="happy" name="rating" value="happy">
+                <label for="happy">Happy</label>
+                <input type="radio" id="upset" name="rating" value="upset">
+                <label for="upset">Upset</label>
+            </div>
+            <textarea name="comment" placeholder="Additional comments..." rows="4" cols="50"></textarea><br>
+            <button type="submit" class="submit-btn">Submit Feedback</button>
+        </form>
+
+        <!-- Flash message -->
+        <div id="flash-message" class="flash-message">Your feedback has been successfully submitted!</div>
+    </div>
+
+    <script>
+        // Emoji selection
+        document.querySelectorAll('.emoji').forEach(emoji => {
+            emoji.addEventListener('click', () => {
+                document.querySelectorAll('.emoji').forEach(e => e.classList.remove('selected'));
+                emoji.classList.add('selected');
+                document.querySelector(`input[name="rating"][value="${emoji.getAttribute('data-rating')}"]`).checked = true;
+            });
+        });
+
+        // Form submission
+        document.getElementById('feedback-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const rating = document.querySelector('input[name="rating"]:checked');
+
+            if (!rating) {
+                alert('Please select a rating.');
+                return;
+            }
+
+            // Show flash message
+            const flashMessage = document.getElementById('flash-message');
+            flashMessage.style.display = 'block';
+
+            // Redirect after a delay
+            setTimeout(() => {
+                window.location.href = "{{ url_for('index') }}";
+            }, 2000); // Delay of 2 seconds
+        });
+    </script>
+</body>
+</html>

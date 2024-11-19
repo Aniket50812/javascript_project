@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eCommerce Product Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="{{ url_for('index') }}" id="home-link">Online Store</a></h1>
+                </div>
+                <ul class="nav-links">
+                    {% if username %}
+                    <li>Welcome, {{ username }}</li>
+                    {% endif %}
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About-us</a></li>
+                    <li><a href="#" id="my-cart-btn" class="nav-link">My Cart</a></li>
+                    <li><a href="{{ url_for('logout') }}" id="logout-link" class="nav-link">Logout</a></li>
+                </ul>
+            </div>
+            <input type="text" id="search-input" placeholder="Search products..." aria-label="Search products" oninput="filterProducts()">
+        </nav>
+    </header>
+    <div id="category-menu" class="category-menu"></div>
+    <main>
+        <div class="product-list">
+            {% for product in products %}
+            <div class="product-item">
+                <h2>{{ product['name'] }}</h2>
+                <p>{{ product['description'] }}</p>
+                <p>Price: ₹{{ product['price'] }}</p>
+            </div>
+            {% endfor %}
+        </div>
+    </main>
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close-cart">&times;</span>
+            <h2>Your Cart</h2>
+            <div id="cart-content"></div>
+            <div id="cart-total">
+                <p>Total: ₹<span id="cart-total-price">0.00</span></p>
+            </div>
+            <div id="cart-empty-message" class="hidden">
+                <p>Your cart is empty.</p>
+            </div>
+            <button id="proceed-btn">Proceed to Checkout</button>
+            <button id="continue-shopping-btn">Continue Shopping</button>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</body>
+</html>

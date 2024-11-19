@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1><a href="{{ url_for('index') }}" id="home-link">Online Store</a></h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="{{ url_for('index') }}" class="nav-link"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="{{ url_for('about') }}" class="nav-link">About Us</a></li>
+                    <li><a href="{{ url_for('checkout') }}" class="nav-link">My Cart</a></li>
+                    <li><a href="{{ url_for('logout') }}" id="logout-link" class="nav-link">logout</a></li>
+                </ul>
+            </div>
+            <input type="text" id="search-input" placeholder="Search products..." aria-label="Search products" oninput="filterProducts()">
+        </nav>
+    </header>
+    <main>
+        <h1>Checkout</h1>
+        <form id="checkout-form">
+            <fieldset>
+                <legend>Shipping Information</legend>
+                <label for="full-name">Full Name:</label>
+                <input type="text" id="full-name" name="full-name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required><br><br>
+                
+                <label for="mobile">Mobile Number:</label>
+                <input type="tel" id="mobile" name="mobile" required><br><br>
+                
+                <label for="address1">Address 1:</label>
+                <input type="text" id="address1" name="address1" required>
+                
+                <label for="address2">Address 2:</label>
+                <input type="text" id="address2" name="address2">
+            </fieldset>
+            
+            <fieldset>
+                <legend>Payment Information</legend>
+                <label for="payment-method">Payment Method:</label>
+                <select id="payment-method" name="payment-method" required>
+                    <option value="cod">Cash on Delivery</option>
+                    <option value="upi">UPI</option>
+                </select>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Order Summary</legend>
+                <p>Total Amount: ₹<span id="order-total">0.00</span></p>
+                <p>Shipping Charges: ₹40.00</p>
+                <p>Grand Total: ₹<span id="grand-total">40.00</span></p>
+            </fieldset>
+            
+            <button id="paymentbtn" type="submit">Pay</button>
+        </form>
+    </main>
+    <script src="{{ url_for('static', filename='checkout.js') }}"></script>
+</body>
+</html>
